@@ -68,7 +68,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ## Estrutura do Fonte:
 <br/>
-### (FALTA DOCUMENTAR)
+sensor.sh     - script que conecta ao sensor e salva as informações regularmente na base de dados.
 <br/>
 <br/>
 
@@ -151,20 +151,8 @@ mysql -u root -p -e "CREATE TABLE iot.cartao ( uid varchar(11) NOT NULL PRIMARY 
 <br/>
 <br/>
 /////////////////////////////// SHELLSCRIPT\
-// Script simulação do sensor criado abaixo.\ 
-// Ver atual no repositório.\
-////////////////////////////////////////////\
 <br/>
-echo '#!/bin/bash
-BTMAC="24:0A:C4:9A:E8:EA"
-DB=iot
-DBPWD="3fedfwre@KD&"
-hexchars="0123456789ABCDEF"
-uid=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e "s/\(..\)/:\1/g" )
-mysql -s -u $DB -p$DBPWD -e "insert into $DB.presenca (timestamp,uid) values (now() - INTERVAL 3 HOUR,\"00$uid\")" 
-' > ~/sensor.sh
-<br/>
-sudo mv ~/sensor.sh /usr/local/bin/sensor.sh
+APÓS COPIAR SCRIPT E DAR PERMISSÃO DE EXECUÇÃO, AGENDAR EXECUÇÃO REGULAR DO MESMO. EXEMPLO:\
 <br/>
 chmod +x /usr/local/bin/sensor.sh
 <br/>
