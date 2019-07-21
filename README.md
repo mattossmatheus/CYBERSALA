@@ -108,6 +108,8 @@ OBS: Mais instruções para operações com GIT em https://rogerdudler.github.io
 ///////////////////////////////	INST. REQS.
 <br/>
 S.O. UBUNTU 18.04 LTS
+<br/>
+
 sudo apt-get install php7.2 apache2 php7.2-mysql mysql-server unzip bluez
 <br/>
 <br/>
