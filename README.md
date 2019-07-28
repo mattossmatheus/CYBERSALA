@@ -152,8 +152,8 @@ sudo service mysql start
 <br/>
 ```bash
 mysql -u root -p -e "CREATE DATABASE iot"
-mysql -u root -p -e "CREATE USER 'iot'@'localhost' IDENTIFIED BY '3fedfwre@KD&'"
-mysql -u root -p -e "GRANT ALL PRIVILEGES ON iot.* TO 'iot'@'localhost'"
+mysql -u root -p -e "CREATE USER \'iot\'@\'localhost\' IDENTIFIED BY \'3fedfwre@KD&\'"
+mysql -u root -p -e "GRANT ALL PRIVILEGES ON iot.* TO \'iot\'@'localhost\'"
 mysql -u root -p -e "CREATE TABLE iot.presenca ( id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,timeStamp TIMESTAMP NOT NULL , uid varchar (11) NOT NULL)"
 mysql -u root -p -e "CREATE TABLE iot.cartao ( uid varchar(11) NOT NULL PRIMARY KEY, nome varchar (45) NOT NULL)"
 ```
