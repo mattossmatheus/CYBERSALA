@@ -139,9 +139,9 @@ sudo service mysql stop
 sudo mkdir /var/run/mysqld
 sudo chmod 777  /var/run/mysqld
 sudo /usr/bin/mysqld_safe --skip-grant-tables --daemonize --pid-file=/run/mysqld/mysqld.pid 2>/dev/null &  
-mysql -b mysql -u root -e \"UPDATE user SET plugin=\'mysql_native_password\' WHERE User=\'root\'\"
-mysql -b mysql -u root -e \"update user set authentication_string=PASSWORD(\'XXXXXXXX\') where User=\'root\'"
-mysql -b mysql -u root -e \"flush privileges\"
+mysql -b mysql -u root -e "UPDATE user SET plugin='mysql_native_password' WHERE User='root'"
+mysql -b mysql -u root -e "update user set authentication_string=PASSWORD('XXXXXXXX') where User='root'"
+mysql -b mysql -u root -e "flush privileges"
 sudo pkill -9 mysqld
 sudo rm -r /var/run/mysqld
 sudo service mysql start
