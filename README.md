@@ -69,6 +69,17 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 # Arquitetura
 <br/>
+## Lista de componentes:
+<br/>
+= Microcontrolador ESP32
+= Protoboard
+= LEDs
+= 2x resistores de 330 ohms (lar/lar/mar/*)
+= Sensor RFID RC522
+= Cartes RFID para testar (riocardo, crachá de identificação, etc...)
+### (FALTA TERMINAR DE DOCUMENTAR)
+<br/>
+<br/>
 ## Modelagem do sistema:
 <br/>
 ### (FALTA DOCUMENTAR)
@@ -109,71 +120,63 @@ OBS: Mais instruções para operações com GIT em https://rogerdudler.github.io
 <br/>
 S.O. UBUNTU 18.04 LTS
 <br/>
-
-sudo apt-get install php7.2 apache2 php7.2-mysql mysql-server unzip bluez
+```bash
+sudo apt-get install mysql-server unzip bluez
+```
 <br/>
 <br/>
 
 ///////////////////////////////	REDEF. MYSQL-SERVER PASS @ DEBIAN-LIKE
 <br/>
+```bash
 sudo service mysql stop
-<br/>
 sudo mkdir /var/run/mysqld
-<br/>
 sudo chmod 777  /var/run/mysqld
-<br/>
 sudo /usr/bin/mysqld_safe --skip-grant-tables --daemonize --pid-file=/run/mysqld/mysqld.pid 2>/dev/null &  
-<br/>
 mysql -b mysql -u root -e "UPDATE user SET plugin='mysql_native_password' WHERE User='root'"
-<br/>
 mysql -b mysql -u root -e "update user set authentication_string=PASSWORD('XXXXXXXX') where User='root'"
-<br/>
 mysql -b mysql -u root -e "flush privileges"
-<br/>
 sudo pkill -9 mysqld
-<br/>
 sudo rm -r /var/run/mysqld
-<br/>
 sudo service mysql start
-<br/>
-<br/>
-/////////////////////////////// INSTALL SQL ADMIN APP
-<br/>
-cd /var/www/
-<br/>
-sudo rm -r html/
-<br/>
-sudo git clone https://github.com/Frecuencio/sqlbuddy-php7.git
-<br/>
-sudo mv sqlbuddy-php7 html
+```
 <br/>
 <br/>
 /////////////////////////////// BASE
 <br/>
+```bash
 mysql -u root -p -e "CREATE DATABASE iot"
-<br/>
 mysql -u root -p -e "CREATE USER 'iot'@'localhost' IDENTIFIED BY '3fedfwre@KD&'"
-<br/>
 mysql -u root -p -e "GRANT ALL PRIVILEGES ON iot.* TO 'iot'@'localhost'"
-<br/>
 mysql -u root -p -e "CREATE TABLE iot.presenca ( id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,timeStamp TIMESTAMP NOT NULL , uid varchar (11) NOT NULL)"
-<br/>
 mysql -u root -p -e "CREATE TABLE iot.cartao ( uid varchar(11) NOT NULL PRIMARY KEY, nome varchar (45) NOT NULL)"
+```
 <br/>
 <br/>
-/////////////////////////////// SHELLSCRIPT\
+/////////////////////////////// EXIBIR LISTA DE ACESSOS DIRETO DO TERMINAL (OPCIONAL)
+<br/>
+```bash
+PASS="3fedfwre@KD&"
+watch -n2 "/opt/lampp/bin/mysql -b iot -p$PASS -e \"select presenca.timestamp,presenca.uid,cartao.nome from presenca left join cartao on (presenca.uid=cartao.uid)\""
+```
+<br/>
+/////////////////////////////// SHELLSCRIPT
 <br/>
 APÓS COPIAR SCRIPT E DAR PERMISSÃO DE EXECUÇÃO, AGENDAR EXECUÇÃO REGULAR DO MESMO. EXEMPLO:\
 <br/>
+```bash
 chmod +x /usr/local/bin/sensor.sh
-<br/>
 echo "*/2 * * * *   root    /usr/local/bin/sensor.sh" >> /etc/crontab
-<br/>
 sudo service cron restart
+```
 <br/>
 <br/>
 /////////////////////////////// SENSOR
 <br/>
-### (FALTA DOCUMENTAR)
+Já com a Arduino IDE instalada, execute-a e clique em Arquivo->Preferências. Depois em "URLs adicionais para gerenciadores de placas" adcionar o endereço https://dl.espressif.com/dl/package_esp32_index.json .
+<br/>
+Durante o desenvolvimento utitlizar a placa "ESP32 Dev Module" como especificação da placa. E atentar para a seleçã da porta serial utilizada para subir o código abaixo para o microcontrolador.
+<br/>
+### (FALTA TERMINAR DE DOCUMENTAR)
 <br/>
 <br/>
