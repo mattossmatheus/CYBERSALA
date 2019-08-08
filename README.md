@@ -165,7 +165,15 @@ mysql -u root -p -e \"CREATE TABLE iot.cartao ( uid varchar(11) NOT NULL PRIMARY
 ```
 <br/>
 <br/>
-/////////////////////////////// EXIBIR LISTA DE ACESSOS DIRETO DO TERMINAL (OPCIONAL)
+///////////////////////////////  (OPCIONAL)
+### Consultar sensor pela serial BLE
+<br/>
+No Android, usar app. Serial Bluetooth Terminal!
+
+<br/>
+<br/>
+
+### EXIBIR LISTA DE ACESSOS DIRETO DO TERMINAL
 <br/>
 
 
@@ -176,7 +184,7 @@ watch -n2 "/opt/lampp/bin/mysql -b iot -p$PASS -e \"select presenca.timestamp,pr
 <br/>
 /////////////////////////////// SHELLSCRIPT
 <br/>
-APÓS COPIAR SCRIPT E DAR PERMISSÃO DE EXECUÇÃO, AGENDAR EXECUÇÃO REGULAR DO MESMO. EXEMPLO:\
+APÓS COPIAR SCRIPT E DAR PERMISSÃO DE EXECUÇÃO, AGENDAR EXECUÇÃO REGULAR DO MESMO. EXEMPLO:
 <br/>
 
 
