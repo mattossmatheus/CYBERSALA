@@ -126,6 +126,8 @@ OBS: Mais instruções para operações com GIT em https://rogerdudler.github.io
 <br/>
 S.O. UBUNTU 18.04 LTS
 <br/>
+
+
 ```bash
 sudo apt-get install mysql-server unzip bluez
 ```
@@ -134,6 +136,8 @@ sudo apt-get install mysql-server unzip bluez
 
 ///////////////////////////////	REDEF. MYSQL-SERVER PASS @ DEBIAN-LIKE
 <br/>
+
+
 ```bash
 sudo service mysql stop
 sudo mkdir /var/run/mysqld
@@ -150,6 +154,8 @@ sudo service mysql start
 <br/>
 /////////////////////////////// BASE
 <br/>
+
+
 ```bash
 mysql -u root -p -e \"CREATE DATABASE iot\"
 mysql -u root -p -e \"CREATE USER \'iot\'@\'localhost\' IDENTIFIED BY \'3fedfwre@KD&\'"\
@@ -161,6 +167,8 @@ mysql -u root -p -e \"CREATE TABLE iot.cartao ( uid varchar(11) NOT NULL PRIMARY
 <br/>
 /////////////////////////////// EXIBIR LISTA DE ACESSOS DIRETO DO TERMINAL (OPCIONAL)
 <br/>
+
+
 ```bash
 PASS="3fedfwre@KD&"
 watch -n2 "/opt/lampp/bin/mysql -b iot -p$PASS -e \"select presenca.timestamp,presenca.uid,cartao.nome from presenca left join cartao on (presenca.uid=cartao.uid)\""
@@ -170,6 +178,8 @@ watch -n2 "/opt/lampp/bin/mysql -b iot -p$PASS -e \"select presenca.timestamp,pr
 <br/>
 APÓS COPIAR SCRIPT E DAR PERMISSÃO DE EXECUÇÃO, AGENDAR EXECUÇÃO REGULAR DO MESMO. EXEMPLO:\
 <br/>
+
+
 ```bash
 chmod +x /usr/local/bin/sensor.sh
 echo "*/2 * * * *   root    /usr/local/bin/sensor.sh" >> /etc/crontab
