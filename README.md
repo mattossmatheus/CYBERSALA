@@ -208,7 +208,13 @@ sudo service cron restart
 
 ## Próximos passos
 = Conversão serial BLE  > TEXT PLAN (ESTUDAR DOCUMENTAÇÃO DOS FABRICANTES)
+<br/>
+
 = Automação relé conforme perfis presentes no local - cód pronto!
+<br/>
+
 = Salva e apresentação dos dados na Nuvem.
+<br/>
+<br/>
 
 
