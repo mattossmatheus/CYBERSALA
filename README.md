@@ -75,10 +75,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 <br/>
 = Protoboard
 <br/>
-= LEDs
-<br/>
-= 2x resistores de 330 ohms (lar/lar/mar/*)
-<br/>
 = Sensor RFID RC522
 <br/>
 = Cartes RFID para testar (riocardo, crachá de identificação, etc...)
@@ -96,26 +92,38 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 <br/>
 sensor.sh     - script que conecta ao sensor e salva as informações regularmente na base de dados.
 <br/>
+RFID.ino      - programação do microcrontrolador ESP32.
+<br/>
 <br/>
 
 
 ## Requisitos:
 <br/>
-### (FALTA DOCUMENTAR)
+1. S.O. UBUNTU 18.04 LTS (pode usar a IDE, cujo uso é pontual, em qualquer plataforma; aqui sistema definido para persistência de dados)
+2. Arduino IDE.
+3. Libs BLE, RC522 e ESP32 ( https://dl.espressif.com/dl/package_esp32_index.json ) a IDE.
 <br/>
 <br/>
+
+**OBS:** Para instalação básica: 
+1 - instalar os requisitos acima e disponibilizar o código no servidor. 
+2 - subir o código RFID.ino para o microcontrolador ESP32.
 
 
 ## DEV ROADMAP:
-Para sincronizar o fonte, efetuar os passos abaixo:\
-1. Baixe e instale o GIT BASH a partir do site  https://git-scm.com/download/win 
-2. Acesse a raiz \do servidor de páginas, conforme descrito anteriormente.
-3. Clone o repositório com o comando
+Para sincronizar o fonte, efetuar os passos abaixo (ou preferencialmente utilizar uma ferramenta gráfica para operação do GIT. Ex.: Git GUI - vem junto com o pacote GIT BASH, ou GIT-DESKTOP): 
+
+1. Clone o repositório com o comando
 ```bash
 git clone https://github.com/dbeniciorj/CYBERSALA/
 ```
-<br/>    
-OBS: Mais instruções para operações com GIT em https://rogerdudler.github.io/git-guide/ 
+<br/>
+2. Dar permissão ao script sensor.sh
+3. Ajustar Mac Address Bluetooth do ESP32 na linha no. 2 do script
+4. Subir BD
+5. 
+
+
 <br/>
 <br/>
 
@@ -123,11 +131,8 @@ OBS: Mais instruções para operações com GIT em https://rogerdudler.github.io
 
 
 ///////////////////////////////	INST. REQS.
+Após baixar o código no servidor e executar os procedimentos básicos de instalação, proceder como abaixo:
 <br/>
-S.O. UBUNTU 18.04 LTS
-<br/>
-
-
 ```bash
 sudo apt-get install mysql-server unzip bluez
 ```
@@ -160,8 +165,8 @@ sudo service mysql start
 mysql -u root -p -e \"CREATE DATABASE iot\"
 mysql -u root -p -e \"CREATE USER \'iot\'@\'localhost\' IDENTIFIED BY \'3fedfwre@KD&\'"\
 mysql -u root -p -e \"GRANT ALL PRIVILEGES ON iot.* TO \'iot\'@'localhost\'\"
-mysql -u root -p -e \"CREATE TABLE iot.presenca ( id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,timeStamp TIMESTAMP NOT NULL , uid varchar (11) NOT NULL)\"
-mysql -u root -p -e \"CREATE TABLE iot.cartao ( uid varchar(11) NOT NULL PRIMARY KEY, nome varchar (45) NOT NULL)\"
+mysql -u root -p -e \"CREATE TABLE iot.presenca ( id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,timeStamp TIMESTAMP NOT NULL , uid varchar (11) NOT NULL, site enum('2035') default '2035')\"
+mysql -u root -p -e \"CREATE TABLE iot.cartao ( uid varchar(11) NOT NULL PRIMARY KEY, nome varchar (45) NOT NULL,perf enum('professor','aluno') default 'professor')\"
 ```
 <br/>
 <br/>
@@ -178,8 +183,8 @@ No Android, usar app. Serial Bluetooth Terminal!
 
 
 ```bash
-PASS="3fedfwre@KD&"
-watch -n2 "/opt/lampp/bin/mysql -b iot -p$PASS -e \"select presenca.timestamp,presenca.uid,cartao.nome from presenca left join cartao on (presenca.uid=cartao.uid)\""
+PASS="1234"
+watch -n2 "/opt/lampp/bin/mysql -b iot -e \"select presenca.timestamp,presenca.uid,cartao.nome,cartao.perf,presenca.site from presenca left join cartao on (presenca.uid=cartao.uid)\""
 ```
 <br/>
 /////////////////////////////// SHELLSCRIPT
@@ -193,14 +198,5 @@ chmod +x /usr/local/bin/sensor.sh
 echo "*/2 * * * *   root    /usr/local/bin/sensor.sh" >> /etc/crontab
 sudo service cron restart
 ```
-<br/>
-<br/>
-/////////////////////////////// SENSOR
-<br/>
-Já com a Arduino IDE instalada, execute-a e clique em Arquivo->Preferências. Depois em "URLs adicionais para gerenciadores de placas" adcionar o endereço https://dl.espressif.com/dl/package_esp32_index.json .
-<br/>
-Durante o desenvolvimento utitlizar a placa "ESP32 Dev Module" como especificação da placa. E atentar para a seleçã da porta serial utilizada para subir o código abaixo para o microcontrolador.
-<br/>
-### (FALTA TERMINAR DE DOCUMENTAR)
 <br/>
 <br/>
