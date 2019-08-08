@@ -75,7 +75,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 <br/>
 = Protoboard
 <br/>
-= Sensor RFID RC522
+= Sensor Mifare MFRC522 (NXP RC522), a.k.a. RFID-RC522
 <br/>
 = Cartes RFID para testar (riocardo, crachá de identificação, etc...)
 <br/>
