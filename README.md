@@ -200,3 +200,15 @@ sudo service cron restart
 ```
 <br/>
 <br/>
+
+## PROBLEMAS ENCONTRADOS:
+06/08 - Criado arquivo INO. Antes não foi encontrado código contemplando comunicação com sensor via WPAN LE.
+<br/>
+<br/>
+
+## Próximos passos
+= Conversão serial BLE  > TEXT PLAN (ESTUDAR DOCUMENTAÇÃO DOS FABRICANTES)
+= Automação relé conforme perfis presentes no local - cód pronto!
+= Salva e apresentação dos dados na Nuvem.
+
+
