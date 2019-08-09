@@ -11,7 +11,7 @@ char st[20];
 MFRC522 mfrc522(SS_PIN, RST_PIN);
 
 const int LED = 13;
-const int BTPWR = 5;
+const int BTPWR = 5; //PORTA DIGITAL 5 DO ARDUINO LIGADO NA PORTA VCC DO HC06
 
 char nombreBT[10] = "TechKrowdS";
 char velocidad ='4';//9600
