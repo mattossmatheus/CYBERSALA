@@ -1,4 +1,3 @@
-    
 #include <SPI.h>
 #include <MFRC522.h>
  
@@ -13,7 +12,7 @@ MFRC522 mfrc522(SS_PIN, RST_PIN);
 const int LED = 13;
 const int BTPWR = 5; //PORTA DIGITAL 5 DO ARDUINO LIGADO NA PORTA VCC DO HC06
 
-char nombreBT[10] = "TechKrowdS";
+char nombreBT[10] = "CYBERSALA";
 char velocidad ='4';//9600
 char pin [5]= "0000";
 
@@ -26,20 +25,7 @@ void setup(){
 
   Serial.begin(9600);
 
-  Serial.print("AT");
-  delay(1000);
-
-  Serial.print("AT+NAME");
-  Serial.print(nombreBT);
-  delay(1000);
-
-  Serial.print("AT+BAUD");
-  Serial.print(velocidad);
-  delay(1000);
-
-  Serial.print("AT+PIN");
-  Serial.print(pin);
-  delay(1000);
+  
 
   digitalWrite(LED, HIGH);
 
